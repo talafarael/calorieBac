@@ -4,7 +4,7 @@ import { PrismaService } from 'src/prisma.service';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 
-const generateAccessToken = (id) => {
+const generateAccessToken = (id:string) => {
   const playold = {
     id,
   };
