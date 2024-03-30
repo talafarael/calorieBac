@@ -3,13 +3,9 @@ import { LoginDto } from './login.dto';
 import { PrismaService } from 'src/prisma.service';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
+import { generateAccessToken } from 'middleware/generateAccessToken';
 
-const generateAccessToken = (id:string) => {
-  const playold = {
-    id,
-  };
-  return jwt.sign(playold, process.env.SECRET, { expiresIn: '24h' });
-};
+
 @Injectable()
 export class LoginService {
   constructor(private prisma: PrismaService) {}
