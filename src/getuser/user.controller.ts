@@ -4,16 +4,18 @@ import {
   Body,
   ValidationPipe,
   UsePipes,
+  Patch
 } from '@nestjs/common';
 import { userService } from './user.service';
 import { GetuserDto } from './user.dto';
 
-@Controller('getuser')
+@Controller('user')
 export class userController {
   constructor(private readonly userService: userService) {}
-  @Post()
+  @Post('get')
   @UsePipes(new ValidationPipe())
+ 
   async create(@Body() dto: GetuserDto) {
-    return this.userService.getuser(dto);
+    return this.userService.user(dto);
   }
 }

@@ -5,7 +5,7 @@ import { PrismaService } from 'src/prisma.service';
 @Injectable()
 export class userService {
   constructor(private prisma: PrismaService) {}
-  async getuser(dto: GetuserDto) {
+  async user(dto: GetuserDto) {
     if (!dto.token) {
       throw new Error('Пользователь не авторизован');
     }

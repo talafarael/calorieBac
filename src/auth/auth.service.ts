@@ -1,12 +1,36 @@
 import { Injectable } from '@nestjs/common';
-import { RegisterDto } from './register.dto';
 import { PrismaService } from 'src/prisma.service';
+import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import { generateAccessToken } from 'middleware/generateAccessToken';
+import { LoginDto, RegisterDto } from './auth.dto';
+
+
+
 @Injectable()
-export class RegisterService {
+export class AuthService {
   constructor(private prisma: PrismaService) {}
-  async create(dto: RegisterDto) {
+  async login(dto:RegisterDto) {
+    const User = await this.prisma.users.findFirst({
+      where: {
+        email: dto.email,
+      },
+    });
+    if (!User) {
+      throw new Error('Пользователь с данным email не существует');
+    }
+    const validPassword = bcrypt.compareSync(dto.password, User.password);
+    if (!validPassword) {
+      throw new Error('не верный пароль');
+    }
+    const token = generateAccessToken(User.id);
+    return {
+    token
+    };
+  }
+
+
+  async register(dto: LoginDto) {
     console.log(';fafa');
     const existingUser = await this.prisma.users.findFirst({
       where: {
