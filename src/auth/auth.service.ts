@@ -3,7 +3,8 @@ import { PrismaService } from 'src/prisma.service';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import { generateAccessToken } from 'middleware/generateAccessToken';
-import { LoginDto, RegisterDto } from './auth.dto';
+import { LoginDto, RegisterDto, tokenDto } from './auth.dto';
+import verifyToken from 'middleware/verifyToken';
 
 
 
@@ -23,7 +24,8 @@ export class AuthService {
     if (!validPassword) {
       throw new Error('не верный пароль');
     }
-    const token = generateAccessToken(User.id);
+    // '365d'
+    const token = generateAccessToken(User.id, '1h');
     return {
     token
     };
@@ -46,9 +48,12 @@ export class AuthService {
     const createdUser =await this.prisma.users.create({
       data: dto,
     });
-    const token = generateAccessToken(createdUser.id);
+    const token = generateAccessToken(createdUser.id,'1h');
     return {
       token
       };
+  }
+  async sendEmail(dto:tokenDto){
+    const {user, id} = await verifyToken(dto.token)
   }
 }

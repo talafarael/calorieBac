@@ -13,3 +13,7 @@ export class LoginDto{
 	email:string
 	password:string
 }
+export class tokenDto{
+	@IsString()
+	token:string
+}
