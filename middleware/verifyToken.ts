@@ -1,27 +1,33 @@
-import jwt, { JwtPayload } from 'jsonwebtoken';
-const { secret } = require('../config');
+import * as jwt from 'jsonwebtoken';
+import { PrismaService } from 'src/prisma.service';
 
-
-async function verifyToken(token: string) {
+async function verifyToken(token: string, prismaService: PrismaService): Promise<{ user: any, id: string }> {
   try {
     if (!token) {
       throw new Error('Пользователь не авторизован');
     }
-    console.log(secret);
-    const decodedData = (await jwt.verify(token, secret)) as JwtPayload;
-    const id = decodedData.id;
-    const user =  await this.prisma.users.findFirst({
-					where: {
-						_id:id.trim()
-					}
-				})
-    if (!user) {
-      throw new Error('The user with this name does not exist');
+
+    if (!process.env.SECRET) {
+      throw new Error('Переменная окружения SECRET не определена');
     }
+
+    const decodedData = jwt.verify(token, process.env.SECRET) as { id: string };
+    const id = decodedData.id;
+console.log(id)
+    const user = await  prismaService.userRegister.findFirst({
+      where: {
+        id: id.trim()
+      }
+    });
+				console.log(user)
+    if (!user) {
+      throw new Error('Пользователь с данным идентификатором не найден');
+    }
+
     return { user, id };
   } catch (error) {
-    throw new Error('Invalid token');
+    throw new Error('Невозможно верифицировать токен или найти пользователя');
   }
 }
 
-export = verifyToken;
+export default verifyToken;

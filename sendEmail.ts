@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const nodemailer = require('nodemailer');
 interface SendMessageParams {
   emailUser: string;
@@ -25,4 +25,4 @@ class Emailsend {
   }
 }
 
-module.exports = Emailsend;
+export default Emailsend;
