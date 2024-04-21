@@ -17,3 +17,9 @@ export class tokenDto{
 	@IsString()
 	token:string
 }
+export class checkAndRegisterDto{
+	@IsString()
+	code:any
+	token:string
+
+}
