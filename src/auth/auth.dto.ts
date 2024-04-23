@@ -1,25 +1,22 @@
-import { IsString} from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class RegisterDto {
-	@IsString()
-	email:string
-	password:string
-
-
+  @IsString()
+  email: string;
+  password: string;
 }
-export class LoginDto{
-	@IsString()
-	name:string
-	email:string
-	password:string
+export class LoginDto {
+  @IsString()
+  name: string;
+  email: string;
+  password: string;
 }
-export class tokenDto{
-	@IsString()
-	token:string
+export class tokenDto {
+  @IsString()
+  token: string;
 }
-export class checkAndRegisterDto{
-	@IsString()
-	code:any
-	token:string
-
+export class checkAndRegisterDto {
+  @IsString()
+  code: any;
+  token: string;
 }

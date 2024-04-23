@@ -20,6 +20,7 @@ export class userService {
     if (!User) {
       throw new Error('Пользователь не авторизован');
     }
+    console.log(User);
     return User;
   }
 }
