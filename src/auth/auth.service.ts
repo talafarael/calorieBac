@@ -20,6 +20,7 @@ export class AuthService {
         email: dto.email,
       },
     });
+    console.log(';fafa');
     if (!User) {
       throw new NotFoundException('Пользователь с данным email не существует');
     }
