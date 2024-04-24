@@ -5,7 +5,7 @@ import {
   ValidationPipe,
   UsePipes,
   Patch,
-  Get
+  
 } from '@nestjs/common';
 import { userService } from './user.service';
 import { GetuserDto } from './user.dto';
@@ -13,7 +13,7 @@ import { GetuserDto } from './user.dto';
 @Controller('user')
 export class userController {
   constructor(private readonly userService: userService) {}
-  @Get('get')
+  @Post('get')
   @UsePipes(new ValidationPipe())
  
   async create(@Body() dto: GetuserDto) {
