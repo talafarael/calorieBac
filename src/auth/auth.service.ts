@@ -42,11 +42,13 @@ export class AuthService {
         email: dto.email,
       },
     });
-    await this.prisma.userRegister.delete({
-      where: {
-        email: dto.email,
-      }
-    });
+    if (existingUser) {
+      await this.prisma.userRegister.delete({
+        where: {
+          email: dto.email,
+        },
+      });
+    } 
     if (existingUser) {
       throw new NotFoundException('Пользователь с данным email уже существует');
     }
