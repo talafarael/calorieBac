@@ -78,6 +78,8 @@ export class AuthService {
         code:`${bcryptCode}`,
       },
     });
+
+    
     return 'all good';
   }
   async checkAndRegister(dto:checkAndRegisterDto){
@@ -103,6 +105,6 @@ export class AuthService {
     });
     const token = generateAccessToken(createdUser.id,'365d');
 
-return token;
+return {token,};
   }
 }
