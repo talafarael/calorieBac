@@ -1,13 +1,13 @@
 import { IsString} from 'class-validator';
 
-export class RegisterDto {
+export class LoginDto {
 	@IsString()
 	email:string
 	password:string
 
 
 }
-export class LoginDto{
+export class RegisterDto{
 	@IsString()
 	name:string
 	email:string

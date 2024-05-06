@@ -14,7 +14,7 @@ import Emailsend from 'sendEmail';
 @Injectable()
 export class AuthService {
   constructor(private prisma: PrismaService) {}
-  async login(dto: RegisterDto) {
+  async login(dto: LoginDto) {
     const User = await this.prisma.users.findFirst({
       where: {
         email: dto.email,
@@ -35,7 +35,7 @@ export class AuthService {
     };
   }
 
-  async register(dto: LoginDto) {
+  async register(dto: RegisterDto) {
     console.log(';fafa');
     const existingUser = await this.prisma.users.findFirst({
       where: {
