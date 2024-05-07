@@ -1,7 +1,8 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
 
 import { checkAndRegisterDto, LoginDto, RegisterDto, tokenDto } from './auth.dto';
-import { AuthService } from './auth.service';
+import
+ { AuthService } from './auth.service';
 
 
 @Controller('auth')
