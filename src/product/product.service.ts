@@ -20,11 +20,12 @@ export class ProductService {
     }
     return 'all good';
   }
-  async get(dto: PageDto){
+  async get(page) {
+     console.log('d')
     const Product = await this.prisma.product.findMany({
       take: 20,
-      skip: (dto.page - 1) * 20
+      skip: (page - 1) * 20,
     });
-    return Product
+    return Product;
   }
 }

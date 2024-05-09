@@ -8,6 +8,7 @@ import {
   Delete,
 		UsePipes,
 		ValidationPipe,
+    Query,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { PageDto, ProductDto } from './product.dto';
@@ -22,7 +23,7 @@ export class ProductController {
   }
   @Get('get')
   @UsePipes(new ValidationPipe())
-  get(@Body() dto: PageDto) {
-    return this.productService.get(dto);
+  get(@Query('page') page: number) {
+    return this.productService.get(page);
   }
 }
