@@ -6,22 +6,11 @@ import { PageDto, ProductDto } from './product.dto';
 export class ProductService {
   constructor(private prisma: PrismaService) {}
   async create(dto: ProductDto) {
-    for (let i = 0; i < dto.products.length; i++) {
-      await this.prisma.product.create({
-        data: {
-          name: dto.products[i].name,
-          calories: dto.products[i].calories,
-          img: dto.products[i].img,
-          description: dto.products[i].description,
-          vitamins: dto.products[i].vitamins,
-          category: dto.products[i].category,
-        },
-      });
-    }
+    await this.prisma.product.createMany({ data: dto.products });
     return 'all good';
   }
   async get(page) {
-     console.log('d')
+    console.log('d');
     const Product = await this.prisma.product.findMany({
       take: 20,
       skip: (page - 1) * 20,

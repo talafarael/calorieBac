@@ -14,14 +14,14 @@ class ProductItemDto {
   @IsString()
   description: string;
 
-		@IsString()
-		category:string;
-		
+  @IsString()
+  category: string;
+
   @IsArray()
   vitamins: string[];
 }
 
-export class PageDto{
+export class PageDto {
   @IsNumber()
   page: number;
 }

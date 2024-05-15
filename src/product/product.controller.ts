@@ -17,7 +17,7 @@ import { PageDto, ProductDto } from './product.dto';
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
   @Post('create')
-  @UsePipes(new ValidationPipe())
+  @UsePipes(new ValidationPipe({ transform: true }))
   create(@Body() dto: ProductDto) {
     return this.productService.create(dto);
   }
