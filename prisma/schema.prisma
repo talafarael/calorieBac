@@ -28,3 +28,13 @@ model userRegister {
   code  String?
 
 }
+model product {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  calories    String
+  vitamins    String[]
+  description String
+  img         String
+  category  String
+}
+
