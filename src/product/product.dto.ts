@@ -31,3 +31,9 @@ export class ProductDto {
   @Type(() => ProductItemDto)
   products: ProductItemDto[];
 }
+export class addProductDto {
+  @IsString()
+  token: string;
+  @Type(() => ProductItemDto)
+  product: ProductItemDto;
+}

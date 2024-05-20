@@ -17,4 +17,7 @@ export class ProductService {
     });
     return Product;
   }
+  async addProduct(){
+    
+  } 
 }

@@ -26,4 +26,9 @@ export class ProductController {
   get(@Query('page') page: number) {
     return this.productService.get(page);
   }
+  @Post('addProduct')
+  @UsePipes(new ValidationPipe())
+  addProduct(@Body() dto: ProductDto) {
+    return this.productService.get(dto);
+  }
 }
