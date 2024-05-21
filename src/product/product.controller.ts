@@ -11,7 +11,7 @@ import {
     Query,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
-import { PageDto, ProductDto } from './product.dto';
+import { addProductDto, PageDto, ProductDto } from './product.dto';
 
 @Controller('product')
 export class ProductController {
@@ -28,7 +28,7 @@ export class ProductController {
   }
   @Post('addProduct')
   @UsePipes(new ValidationPipe())
-  addProduct(@Body() dto: ProductDto) {
+  addProduct(@Body() dto: addProductDto) {
     return this.productService.get(dto);
   }
 }

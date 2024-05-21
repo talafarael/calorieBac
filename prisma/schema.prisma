@@ -19,6 +19,7 @@ model users {
   email   String   @unique
   name    String
   password   String
+  ProductsList String
 }
 model userRegister {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId

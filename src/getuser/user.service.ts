@@ -9,9 +9,8 @@ export class userService {
     if (!dto.token) {
       throw new Error('Пользователь не авторизован');
     }
-    console.log(dto.token)
-    console.log(dto)
-    console.log(';fafa');
+   
+    
     const decodedData = jwt.verify(dto.token.trim(), process.env.SECRET);
     const id = decodedData.id;
     const User = await this.prisma.users.findFirst({

@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { PageDto, ProductDto } from './product.dto';
-
+import { addProductDto, PageDto, ProductDto } from './product.dto';
+import * as jwt from 'jsonwebtoken';
+import verifyToken from 'middleware/verifyToken';
 @Injectable()
 export class ProductService {
   constructor(private prisma: PrismaService) {}
@@ -10,14 +11,15 @@ export class ProductService {
     return 'all good';
   }
   async get(page) {
-    console.log('d');
     const Product = await this.prisma.product.findMany({
       take: 20,
       skip: (page - 1) * 20,
     });
     return Product;
   }
-  async addProduct(){
-    
-  } 
+  async addProduct(dto: addProductDto) {
+    const {user}=await verifyToken(dto.token,this.prisma)
+    user.ProductsList.push(dto.product)
+    return 'all good';
+  }
 }
