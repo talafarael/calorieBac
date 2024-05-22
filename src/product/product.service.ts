@@ -15,17 +15,18 @@ export class ProductService {
     //   take: 20,
     //   skip: (page - 1) * 20,
     // });
-    return ;
+    return;
   }
   async addProduct(dto: addProductDto) {
-    const { user } = await verifyToken(dto.token,'users');
+    const { user } = await verifyToken(dto.token, 'users', this.prisma);
     var currentDate = new Date();
-    console.log('aaa')
+    console.log('aaa');
     const info = {
       day: currentDate.getDate(),
       product: dto.product,
     };
-    user.dto.mealTime = info;
+    
+    user.dinner = info;
     return 'all good';
   }
 }
