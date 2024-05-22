@@ -19,10 +19,15 @@ model users {
   email   String   @unique
   name    String
   password   String
-  lunch String
-  breakfast String
-  dinner String
+  lunchId String
+  breakfastId String
+  dinnerId  String
+  lunchDay String
+  breakfastDay String
+  dinnerDay  String
 }
+
+
 model userRegister {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
   email   String   @unique

@@ -30,7 +30,7 @@ export class AuthService {
       throw new Error('не верный пароль');
     }
     // '365d'
-    const token = generateAccessToken(User.id, '1h');
+    const token = generateAccessToken(User.id, '365d');
     return {
       token,
     };
@@ -64,7 +64,11 @@ export class AuthService {
     };
   }
   async sendEmail(dto: tokenDto) {
-    const { user, id } = await verifyToken(dto.token, 'userRegister',this.prisma);
+    const { user, id } = await verifyToken(
+      dto.token,
+      'userRegister',
+      this.prisma,
+    );
     const code = Math.floor(Math.random() * 8999) + 1000;
     const emailSender = new Emailsend();
     const bcryptCode = await bcrypt.hash(code.toString(), 7);
@@ -85,7 +89,11 @@ export class AuthService {
     return 'all good';
   }
   async checkAndRegister(dto: checkAndRegisterDto) {
-    const { user, id } = await verifyToken(dto.token, 'userRegister',this.prisma);
+    const { user, id } = await verifyToken(
+      dto.token,
+      'userRegister',
+      this.prisma,
+    );
     console.log(user.code);
     console.log(dto.code);
     const validPassword = bcrypt.compareSync(dto.code, user.code);
@@ -98,9 +106,12 @@ export class AuthService {
         email: user.email,
         name: user.name,
         password: user.password,
-        lunch: '',
-        breakfast: '',
-        dinner: '',
+        lunchId: '',
+        breakfastId: '',
+        dinnerId: '',
+        lunchDay: '',
+        breakfastDay: '',
+        dinnerDay: '',
       },
     });
     await this.prisma.userRegister.delete({

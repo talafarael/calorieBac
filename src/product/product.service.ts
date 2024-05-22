@@ -11,22 +11,23 @@ export class ProductService {
     return 'all good';
   }
   async get(page) {
-    // const Product = await this.prisma.product.findMany({
-    //   take: 20,
-    //   skip: (page - 1) * 20,
-    // });
+    const Product = await this.prisma.product.findMany({
+      take: 20,
+      skip: (page - 1) * 20,
+    });
     return;
   }
   async addProduct(dto: addProductDto) {
-    const { user } = await verifyToken(dto.token, 'users', this.prisma);
+    const { user } = await verifyToken(dto.token,'users', this.prisma);
     var currentDate = new Date();
-    console.log('aaa');
-    const info = {
-      day: currentDate.getDate(),
-      product: dto.product,
-    };
     
-    user.dinner = info;
+    const updatedUser = await this.prisma.users.update({
+      where: { id: user.id },
+      data: {dinnerId:dto.id,
+        dinnerDay:currentDate.getDate().toString()
+      }
+    });
+
     return 'all good';
   }
 }
