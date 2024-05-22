@@ -64,7 +64,7 @@ export class AuthService {
     };
   }
   async sendEmail(dto: tokenDto) {
-    const { user, id } = await verifyToken(dto.token, this.prisma.userRegister);
+    const { user, id } = await verifyToken(dto.token, 'userRegister');
     const code = Math.floor(Math.random() * 8999) + 1000;
     const emailSender = new Emailsend();
     const bcryptCode = await bcrypt.hash(code.toString(), 7);
@@ -85,7 +85,7 @@ export class AuthService {
     return 'all good';
   }
   async checkAndRegister(dto: checkAndRegisterDto) {
-    const { user, id } = await verifyToken(dto.token, this.prisma.userRegister);
+    const { user, id } = await verifyToken(dto.token, 'userRegister');
     console.log(user.code);
     console.log(dto.code);
     const validPassword = bcrypt.compareSync(dto.code, user.code);

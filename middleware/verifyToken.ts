@@ -1,16 +1,18 @@
 import * as jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
 
-
 // Create an instance of the Prisma client
 const prisma = new PrismaClient();
-interface PrismaService {
-  findFirst: (args: any) => Promise<any>;
-}
+type PrismaService = {
+  prismaService: any;
+};
 
-async function verifyToken(token: string, prismaService:  PrismaService): Promise<{ user: any, id: string }> {
+async function verifyToken(
+  token: string,
+  func: string,
+): Promise<{ user: any; id: string }> {
   try {
-    console.log('aaaaa')
+    console.log('aaaaa');
     if (!token) {
       throw new Error('Пользователь не авторизован');
     }
@@ -21,13 +23,20 @@ async function verifyToken(token: string, prismaService:  PrismaService): Promis
 
     const decodedData = jwt.verify(token, process.env.SECRET) as { id: string };
     const id = decodedData.id;
-console.log(id)
-    const user = await prismaService.findFirst({
+    console.log(id);
+    let user
+    if('users'==func){
+    user = await prisma.users.findFirst({
       where: {
-        id: id
-      }
-    });
-				console.log(user)
+        id: id,
+      },
+    });}
+    if('users'==func){
+      user = await prisma.userRegister.findFirst({
+        where: {
+          id: id,
+        },
+      });}
     if (!user) {
       throw new Error('Пользователь с данным идентификатором не найден');
     }
