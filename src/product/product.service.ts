@@ -18,16 +18,29 @@ export class ProductService {
     return;
   }
   async addProduct(dto: addProductDto) {
-    const { user } = await verifyToken(dto.token,'users', this.prisma);
+    const { user } = await verifyToken(dto.token, 'users', this.prisma);
     var currentDate = new Date();
-    
-    const updatedUser = await this.prisma.users.update({
-      where: { id: user.id },
-      data: {dinnerId:dto.id,
-        dinnerDay:currentDate.getDate().toString()
-      }
-    });
-
+    if (dto.mealTime == 'dinner') {
+      const updatedUser = await this.prisma.users.update({
+        where: { id: user.id },
+        data: { dinnerId: dto.id, dinnerDay: currentDate.getDate().toString() },
+      });
+    }
+    if (dto.mealTime == 'lunch') {
+      const updatedUser = await this.prisma.users.update({
+        where: { id: user.id },
+        data: { lunchId: dto.id, lunchDay: currentDate.getDate().toString() },
+      });
+    }
+    if (dto.mealTime == 'breakfast') {
+      const updatedUser = await this.prisma.users.update({
+        where: { id: user.id },
+        data: {
+          breakfastId: dto.id,
+          breakfastDay: currentDate.getDate().toString(),
+        },
+      });
+    }
     return 'all good';
   }
 }
