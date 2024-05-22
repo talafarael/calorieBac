@@ -18,7 +18,7 @@ export class ProductService {
     return ;
   }
   async addProduct(dto: addProductDto) {
-    const { user } = await verifyToken(dto.token, this.prisma);
+    const { user } = await verifyToken(dto.token, this.prisma.users);
     var currentDate = new Date();
     console.log('aaa')
     const info = {

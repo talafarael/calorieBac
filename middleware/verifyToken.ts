@@ -1,7 +1,14 @@
 import * as jwt from 'jsonwebtoken';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaClient } from '@prisma/client';
 
-async function verifyToken(token: string, prismaService: PrismaService): Promise<{ user: any, id: string }> {
+
+// Create an instance of the Prisma client
+const prisma = new PrismaClient();
+interface PrismaService {
+  findFirst: (args: any) => Promise<any>;
+}
+
+async function verifyToken(token: string, prismaService:  PrismaService): Promise<{ user: any, id: string }> {
   try {
     console.log('aaaaa')
     if (!token) {
@@ -15,7 +22,7 @@ async function verifyToken(token: string, prismaService: PrismaService): Promise
     const decodedData = jwt.verify(token, process.env.SECRET) as { id: string };
     const id = decodedData.id;
 console.log(id)
-    const user = await  prismaService.userRegister.findFirst({
+    const user = await prismaService.findFirst({
       where: {
         id: id
       }
