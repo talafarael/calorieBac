@@ -36,6 +36,7 @@ export class addProductDto {
   token: string;
   @Type(() => ProductItemDto)
   product: ProductItemDto;
+
   @IsString()
-  time:string
+  mealTime: string;
 }

@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma.service';
 
 async function verifyToken(token: string, prismaService: PrismaService): Promise<{ user: any, id: string }> {
   try {
+    console.log('aaaaa')
     if (!token) {
       throw new Error('Пользователь не авторизован');
     }
@@ -16,7 +17,7 @@ async function verifyToken(token: string, prismaService: PrismaService): Promise
 console.log(id)
     const user = await  prismaService.userRegister.findFirst({
       where: {
-        id: id.trim()
+        id: id
       }
     });
 				console.log(user)
