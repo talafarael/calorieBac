@@ -1,32 +1,49 @@
 import * as jwt from 'jsonwebtoken';
+import { PrismaClient } from '@prisma/client';
+import { NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 
-async function verifyToken(token: string, prismaService: PrismaService): Promise<{ user: any, id: string }> {
+// Create an instance of the Prisma client
+const prisma = new PrismaClient();
+
+
+async function verifyToken(
+  token: string,
+  serves: string,
+  prismaService:PrismaService
+): Promise<{ user: any; id: string }> {
   try {
+    
     if (!token) {
-      throw new Error('Пользователь не авторизован');
+      throw new NotFoundException('Пользователь не авторизован');
     }
 
-    if (!process.env.SECRET) {
-      throw new Error('Переменная окружения SECRET не определена');
-    }
+    
 
-    const decodedData = jwt.verify(token, process.env.SECRET) as { id: string };
+    const decodedData = jwt.verify(token,process.env.SECRET) as { id: string };
     const id = decodedData.id;
-console.log(id)
-    const user = await  prismaService.userRegister.findFirst({
+   
+    let user
+    if('users'==serves){
+      
+    user = await prismaService.users.findFirst({
       where: {
-        id: id.trim()
-      }
-    });
-				console.log(user)
+        id: id,
+      },
+    });}
+    if('userss'===serves){
+      user = await prismaService.userRegister.findFirst({
+        where: {
+          id: id,
+        },
+      });}
     if (!user) {
-      throw new Error('Пользователь с данным идентификатором не найден');
+      throw new NotFoundException('The user with the given identifier was not found.');
     }
 
     return { user, id };
   } catch (error) {
-    throw new Error('Невозможно верифицировать токен или найти пользователя');
+    throw new NotFoundException('Невозможно верифицировать токен или найти пользователя');
   }
 }
 
