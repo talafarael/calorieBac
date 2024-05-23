@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { GetuserDto } from './user.dto';
 import * as jwt from 'jsonwebtoken';
+import { NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 @Injectable()
 export class userService {
   constructor(private prisma: PrismaService) {}
   async user(dto: GetuserDto) {
     if (!dto.token) {
-      throw new Error('Пользователь не авторизован');
+      throw new NotFoundException('Пользователь не авторизован');
     }
    
     
@@ -19,7 +20,7 @@ export class userService {
       },
     });
     if (!User) {
-      throw new Error('Пользователь не авторизован');
+      throw new NotFoundException('Пользователь не авторизован');
     }
     return User;
   }

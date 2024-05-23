@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { addProductDto, PageDto, ProductDto } from './product.dto';
 import * as jwt from 'jsonwebtoken';
+import { NotFoundException } from '@nestjs/common';
 import verifyToken from 'middleware/verifyToken';
 @Injectable()
 export class ProductService {

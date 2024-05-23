@@ -9,38 +9,36 @@ const prisma = new PrismaClient();
 
 async function verifyToken(
   token: string,
-  func: string,
+  serves: string,
   prismaService:PrismaService
 ): Promise<{ user: any; id: string }> {
   try {
     
     if (!token) {
-      throw new Error('Пользователь не авторизован');
+      throw new NotFoundException('Пользователь не авторизован');
     }
 
-    if (!process.env.SECRET) {
-      throw new Error('Переменная окружения SECRET не определена');
-    }
+    
 
     const decodedData = jwt.verify(token,process.env.SECRET) as { id: string };
     const id = decodedData.id;
-    console.log(id);
+   
     let user
-    if('users'==func){
-      console.log('aaaaaaaaaaaaaa')
+    if('users'==serves){
+      
     user = await prismaService.users.findFirst({
       where: {
         id: id,
       },
     });}
-    if('userss'==func){
+    if('userss'===serves){
       user = await prismaService.userRegister.findFirst({
         where: {
           id: id,
         },
       });}
     if (!user) {
-      throw new Error('Пользователь с данным идентификатором не найден');
+      throw new NotFoundException('The user with the given identifier was not found.');
     }
 
     return { user, id };

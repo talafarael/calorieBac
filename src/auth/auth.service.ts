@@ -21,13 +21,13 @@ export class AuthService {
         email: dto.email,
       },
     });
-    console.log(';fafa');
+   
     if (!User) {
       throw new NotFoundException('Пользователь с данным email не существует');
     }
     const validPassword = bcrypt.compareSync(dto.password, User.password);
     if (!validPassword) {
-      throw new Error('не верный пароль');
+      throw new NotFoundException('не верный пароль');
     }
     // '365d'
     const token = generateAccessToken(User.id, '365d');
@@ -37,7 +37,7 @@ export class AuthService {
   }
 
   async register(dto: RegisterDto) {
-    console.log(';fafa');
+   
     const existingUser = await this.prisma.users.findFirst({
       where: {
         email: dto.email,
@@ -94,8 +94,7 @@ export class AuthService {
       'userRegister',
       this.prisma,
     );
-    console.log(user.code);
-    console.log(dto.code);
+
     const validPassword = bcrypt.compareSync(dto.code, user.code);
     if (!validPassword) {
       throw new NotFoundException('The password entered is incorrect');
