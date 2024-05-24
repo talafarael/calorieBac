@@ -31,4 +31,11 @@ export class ProductController {
   addProduct(@Body() dto: addProductDto) {
     return this.productService.addProduct(dto);
   }
+
+
+  @Get('getProduct')
+  @UsePipes(new ValidationPipe())
+  getProduct(@Query('id') id: number) {
+    return this.productService.getProduct(id);
+  }
 }

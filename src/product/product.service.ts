@@ -44,4 +44,14 @@ export class ProductService {
     }
     return 'all good';
   }
+
+  async getProduct(id){
+    const Product = await this.prisma.product.findFirst({
+      where: {
+        id: id,
+      },
+    })
+return Product
+
+  }
 }
