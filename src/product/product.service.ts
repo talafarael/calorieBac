@@ -16,7 +16,7 @@ export class ProductService {
       take: 20,
       skip: (page - 1) * 20,
     });
-    return;
+    return Product;
   }
   async addProduct(dto: addProductDto) {
     const { user } = await verifyToken(dto.token, 'users', this.prisma);
