@@ -25,6 +25,10 @@ export class PageDto {
   @IsNumber()
   page: number;
 }
+export class IdDto {
+  @IsNumber()
+  id: number;
+}
 export class ProductDto {
   @IsArray()
   @ValidateNested({ each: true })

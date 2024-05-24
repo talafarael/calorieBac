@@ -46,6 +46,7 @@ export class ProductService {
   }
 
   async getProduct(id){
+    console.log(id)
     const Product = await this.prisma.product.findFirst({
       where: {
         id: id,

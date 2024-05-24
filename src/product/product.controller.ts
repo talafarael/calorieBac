@@ -28,14 +28,14 @@ export class ProductController {
   }
   @Post('addproduct')
   @UsePipes(new ValidationPipe())
-  addProduct(@Body() dto: addProductDto) {
+  addproduct(@Body() dto: addProductDto) {
     return this.productService.addProduct(dto);
   }
 
 
-  @Get('getProduct')
+  @Get('getproduct')
   @UsePipes(new ValidationPipe())
-  getProduct(@Query('id') id: number) {
+  getproduct(@Query('id') id: string) {
     return this.productService.getProduct(id);
   }
 }
