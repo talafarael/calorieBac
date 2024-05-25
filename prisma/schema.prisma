@@ -19,9 +19,9 @@ model users {
   email   String   @unique
   name    String
   password   String
-  lunchId Json
-  breakfastId Json
-  dinnerId Json
+  lunchId String[]
+  breakfastId String[]
+  dinnerId  String[]
   lunchCalories Int 
   dinnerCalories Int 
   breakfastCalories Int 
