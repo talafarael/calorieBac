@@ -111,6 +111,9 @@ export class AuthService {
         lunchDay: '',
         breakfastDay: '',
         dinnerDay: '',
+        breakfastCalories:0,
+        dinnerCalories:0,
+        lunchCalories:0,
       },
     });
     await this.prisma.userRegister.delete({
