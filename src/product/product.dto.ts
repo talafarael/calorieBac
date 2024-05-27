@@ -42,6 +42,6 @@ export class addProductDto {
   id: string;
   @IsString()
   mealTime: string;
-  @IsNumber()
-  calorie: number;
+  @IsString()
+  calorie: string;
 }
