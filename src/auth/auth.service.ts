@@ -105,12 +105,15 @@ export class AuthService {
         email: user.email,
         name: user.name,
         password: user.password,
-        lunchId: '',
-        breakfastId: '',
-        dinnerId: '',
+        lunchId: [],
+        breakfastId: [],
+        dinnerId: [],
         lunchDay: '',
         breakfastDay: '',
         dinnerDay: '',
+        breakfastCalories:0,
+        dinnerCalories:0,
+        lunchCalories:0,
       },
     });
     await this.prisma.userRegister.delete({

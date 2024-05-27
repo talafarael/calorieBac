@@ -19,9 +19,12 @@ model users {
   email   String   @unique
   name    String
   password   String
-  lunchId String
-  breakfastId String
-  dinnerId  String
+  lunchId String[]
+  breakfastId String[]
+  dinnerId  String[]
+  lunchCalories Int 
+  dinnerCalories Int 
+  breakfastCalories Int 
   lunchDay String
   breakfastDay String
   dinnerDay  String

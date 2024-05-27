@@ -20,39 +20,82 @@ export class ProductService {
   }
   async addProduct(dto: addProductDto) {
     const { user } = await verifyToken(dto.token, 'users', this.prisma);
-    var currentDate = new Date();
-    if (dto.mealTime == 'dinner') {
-      const updatedUser = await this.prisma.users.update({
-        where: { id: user.id },
-        data: { dinnerId: dto.id, dinnerDay: currentDate.getDate().toString() },
-      });
+    const currentDate = new Date();
+    const currentDay = currentDate.getDate().toString();
+  
+    if (dto.mealTime === 'dinner') {
+      if (currentDay === user.dinnerDay) {
+        const updatedDinnerIds = [...user.dinnerId, dto.id];
+        await this.prisma.users.update({
+          where: { id: user.id },
+          data: { dinnerId: updatedDinnerIds,
+            dinnerCalories:dto.calorie+user.dinnerCalories
+           },
+        });
+      } else {
+        await this.prisma.users.update({
+          where: { id: user.id },
+          data: {
+            dinnerId: [dto.id],
+            dinnerDay: currentDay,
+            dinnerCalories :dto.calorie
+          },
+        });
+      }
     }
-    if (dto.mealTime == 'lunch') {
-      const updatedUser = await this.prisma.users.update({
-        where: { id: user.id },
-        data: { lunchId: dto.id, lunchDay: currentDate.getDate().toString() },
-      });
+  
+    if (dto.mealTime === 'lunch') {
+      if (currentDay === user.lunchDay) {
+        const updatedLunchIds = [...user.lunchId, dto.id];
+        await this.prisma.users.update({
+          where: { id: user.id },
+          data: { lunchId: updatedLunchIds,
+            lunchCalories:dto.calorie+user.lunchCalories
+           },
+        });
+      } else {
+        await this.prisma.users.update({
+          where: { id: user.id },
+          data: {
+            lunchId: [dto.id],
+            lunchDay: currentDay,
+            lunchCalories:dto.calorie
+          },
+        });
+      }
     }
-    if (dto.mealTime == 'breakfast') {
-      const updatedUser = await this.prisma.users.update({
-        where: { id: user.id },
-        data: {
-          breakfastId: dto.id,
-          breakfastDay: currentDate.getDate().toString(),
-        },
-      });
+  
+    if (dto.mealTime === 'breakfast') {
+      if (currentDay === user.breakfastDay) {
+        const updatedBreakfastIds = [...user.breakfastId, dto.id];
+        await this.prisma.users.update({
+          where: { id: user.id },
+          data: { breakfastId: updatedBreakfastIds,
+            breakfastCalories:dto.calorie+user.breakfastCalories
+           },
+
+        });
+      } else {
+        await this.prisma.users.update({
+          where: { id: user.id },
+          data: {
+            breakfastId: [dto.id],
+            breakfastDay: currentDay,
+            breakfastCalories:dto.calorie
+          },
+        });
+      }
     }
+  
     return 'all good';
   }
-
-  async getProduct(id){
-    console.log(id)
+  async getProduct(id) {
+    console.log(id);
     const Product = await this.prisma.product.findFirst({
       where: {
-        id: id,
+        id,
       },
-    })
-return Product
-
+    });
+    return Product;
   }
 }
