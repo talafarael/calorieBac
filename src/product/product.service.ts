@@ -29,7 +29,7 @@ export class ProductService {
         await this.prisma.users.update({
           where: { id: user.id },
           data: { dinnerId: updatedDinnerIds,
-            dinnerCalories:dto.calorie+user.dinnerCalories
+            dinnerCalories:+dto.calorie+user.dinnerCalories
            },
         });
       } else {
