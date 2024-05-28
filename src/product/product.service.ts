@@ -38,7 +38,7 @@ export class ProductService {
           data: {
             dinnerId: [dto.id],
             dinnerDay: currentDay,
-            dinnerCalories :dto.calorie
+            dinnerCalories :+dto.calorie
           },
         });
       }
@@ -50,7 +50,7 @@ export class ProductService {
         await this.prisma.users.update({
           where: { id: user.id },
           data: { lunchId: updatedLunchIds,
-            lunchCalories:dto.calorie+user.lunchCalories
+            lunchCalories:+dto.calorie+user.lunchCalories
            },
         });
       } else {
@@ -59,7 +59,7 @@ export class ProductService {
           data: {
             lunchId: [dto.id],
             lunchDay: currentDay,
-            lunchCalories:dto.calorie
+            lunchCalories:+dto.calorie
           },
         });
       }
@@ -71,7 +71,7 @@ export class ProductService {
         await this.prisma.users.update({
           where: { id: user.id },
           data: { breakfastId: updatedBreakfastIds,
-            breakfastCalories:dto.calorie+user.breakfastCalories
+            breakfastCalories:+dto.calorie+user.breakfastCalories
            },
 
         });
@@ -81,7 +81,7 @@ export class ProductService {
           data: {
             breakfastId: [dto.id],
             breakfastDay: currentDay,
-            breakfastCalories:dto.calorie
+            breakfastCalories:+dto.calorie
           },
         });
       }
