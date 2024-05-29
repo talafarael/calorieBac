@@ -5,10 +5,11 @@ import {
   ValidationPipe,
   UsePipes,
   Patch,
+  Query,
   
 } from '@nestjs/common';
 import { userService } from './user.service';
-import { GetuserDto } from './user.dto';
+import { GetProductsUserDto, GetUserDto } from './user.dto';
 
 @Controller('user')
 export class userController {
@@ -16,7 +17,14 @@ export class userController {
   @Post('get')
   @UsePipes(new ValidationPipe())
  
-  async create(@Body() dto: GetuserDto) {
+  get(@Body() dto: GetUserDto) {
     return this.userService.user(dto);
+  }
+
+  @Post('getProductsUser')
+  @UsePipes(new ValidationPipe())
+ 
+  getProductsUser(@Query('token') token: string) {
+    return this.userService.getProductsUser(token);
   }
 }

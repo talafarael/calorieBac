@@ -21,7 +21,7 @@ export class AuthService {
         email: dto.email,
       },
     });
-   
+
     if (!User) {
       throw new NotFoundException('Пользователь с данным email не существует');
     }
@@ -37,7 +37,6 @@ export class AuthService {
   }
 
   async register(dto: RegisterDto) {
-   
     const existingUser = await this.prisma.users.findFirst({
       where: {
         email: dto.email,
@@ -111,9 +110,9 @@ export class AuthService {
         lunchDay: '',
         breakfastDay: '',
         dinnerDay: '',
-        breakfastCalories:0,
-        dinnerCalories:0,
-        lunchCalories:0,
+        breakfastCalories: 0,
+        dinnerCalories: 0,
+        lunchCalories: 0,
       },
     });
     await this.prisma.userRegister.delete({
