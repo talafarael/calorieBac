@@ -6,6 +6,7 @@ import {
   UsePipes,
   Patch,
   Query,
+  Get,
   
 } from '@nestjs/common';
 import { userService } from './user.service';
@@ -21,7 +22,7 @@ export class userController {
     return this.userService.user(dto);
   }
 
-  @Post('getProductsUser')
+  @Get('getProductsUser')
   @UsePipes(new ValidationPipe())
  
   getProductsUser(@Query('token') token: string) {
