@@ -4,7 +4,7 @@ import { NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 
 // Create an instance of the Prisma client
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 async function verifyToken(
   token: string,
@@ -12,7 +12,7 @@ async function verifyToken(
   prismaService: PrismaService,
 ): Promise<{ user: any; id: string }> {
   try {
-    console.log(token)
+    console.log(token);
     if (!token) {
       throw new NotFoundException('Пользователь не авторизован');
     }
@@ -41,7 +41,7 @@ async function verifyToken(
         'The user with the given identifier was not found.',
       );
     }
-
+    console.log(user);
     return { user, id };
   } catch (error) {
     throw new NotFoundException(
