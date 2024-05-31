@@ -53,7 +53,7 @@ export class AuthService {
       throw new NotFoundException('Пользователь с данным email уже существует');
     }
     dto.password = await bcrypt.hash(dto.password, 7);
-    
+
     const createdUser = await this.prisma.userRegister.create({
       data: dto,
     });
@@ -88,7 +88,7 @@ export class AuthService {
     return 'all good';
   }
   async checkAndRegister(dto: checkAndRegisterDto) {
-    console.log('aaa')
+    console.log('aaa');
     const { user, id } = await verifyToken(
       dto.token,
       'userRegister',
