@@ -88,6 +88,7 @@ export class AuthService {
     return 'all good';
   }
   async checkAndRegister(dto: checkAndRegisterDto) {
+    console.log('aaa')
     const { user, id } = await verifyToken(
       dto.token,
       'userRegister',
