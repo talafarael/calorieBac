@@ -26,7 +26,7 @@ export class userService {
   }
   async getProductsUser(token) {
     console.log(token)
-    const { user } = await verifyToken(token, 'users', this.prisma);
+    const { user } = await verifyToken(token,'users',this.prisma);
     let dinner;
     let lunch;
     let breakfast;
